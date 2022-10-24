@@ -6,9 +6,14 @@ import MainPage from './components/MainPage'
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <div className={styles.app__root}></div>
-    </BrowserRouter>
+    <div className={styles.app__root}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route path="/vehicle" element={<MainPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 
