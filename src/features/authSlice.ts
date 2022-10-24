@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { RootState, AppThunk } from '../app/store'
 
@@ -55,6 +55,17 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
+      localStorage.setItem('token', action.payload.token)
+    })
+    builder.addCase(fetchAsyncGetProfile.fulfilled, (state, action) => {
+      return {
+        ...state,
+        profile: action.payload,
+      }
+    })
+  },
 })
 
 export const selectProfile = (state: RootState) => state.auth.profile
