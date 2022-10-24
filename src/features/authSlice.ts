@@ -42,7 +42,7 @@ export const fetchAsyncRegister = createAsyncThunk(
 export const fetchAsyncGetProfile = createAsyncThunk(
   'profile/get',
   async () => {
-    const res = await axios.get(`${apiUrl}api/profile`, {
+    const res = await axios.get(`${apiUrl}api/profile/`, {
       headers: {
         Authorization: `token ${localStorage.token}`,
       },
