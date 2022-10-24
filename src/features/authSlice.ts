@@ -1,9 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { RootState, AppThunk } from '../app/store'
-import { fetchCount } from './counter/counterAPI'
 
 const apiUrl = 'http://localhost:8000/'
+
+export const fetchAsyncLogin = createAsyncThunk('login/post', async (auth) => {
+  const res = await axios.post(`${apiUrl}api/auth`, auth, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  return res.data
+})
 
 export interface AuthState {
   profile: {
