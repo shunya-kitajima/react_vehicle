@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { RootState, AppThunk } from '../app/store'
+import { RootState } from '../app/store'
 
 const apiUrl = 'http://localhost:8000/'
 
