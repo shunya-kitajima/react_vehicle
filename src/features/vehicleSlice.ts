@@ -19,7 +19,7 @@ export const fetchAsyncGetSegments = createAsyncThunk(
 
 export const fetchAsyncCreateSegment = createAsyncThunk(
   'segment/post',
-  async (segment: SegmentType) => {
+  async (segment: Omit<SegmentType, 'id'>) => {
     const res = await axios.post(`${apiUrl}api/segments/`, segment, {
       headers: {
         'Content-Type': 'application/json',
@@ -68,3 +68,16 @@ export const fetchAsyncGetBrand = createAsyncThunk('brand/get', async () => {
   })
   return res.data
 })
+
+export const fetchAsyncCreateBrand = createAsyncThunk(
+  'brand/post',
+  async (brand: Omit<BrandType, 'id'>) => {
+    const res = await axios.post(`${apiUrl}api/segments/`, brand, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `token ${localStorage.token}`,
+      },
+    })
+    return res.data
+  }
+)
