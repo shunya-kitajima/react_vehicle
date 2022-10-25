@@ -11,8 +11,8 @@ import Vehicle from './Vehicle'
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate()
-  const profile = useAppSelector(selectProfile)
   const dispatch = useAppDispatch()
+  const profile = useAppSelector(selectProfile)
   const { fetchAsyncGetProfile } = fetchAuth()
 
   const logout = () => {
