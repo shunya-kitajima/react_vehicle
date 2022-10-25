@@ -43,13 +43,13 @@ export const fetchBrand = () => {
   const fetchAsyncDeleteBrand = createAsyncThunk(
     'brand/delete',
     async (id: number) => {
-      const res = await axios.delete(`${apiUrl}api/brands/${id}/`, {
+      await axios.delete(`${apiUrl}api/brands/${id}/`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `token ${localStorage.token}`,
         },
       })
-      return res.data
+      return id
     }
   )
 
