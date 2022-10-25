@@ -45,7 +45,45 @@ const Vehicle: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return <div>Vehicle</div>
+  return (
+    <>
+      <h3 data-testid="h3-vehicle">Vehicle</h3>
+      <span className={styles.vehicle__status}>{successMsg}</span>
+      <div className={styles.vehicle__input}>
+        <input
+          type="text"
+          placeholder="new vehicle name"
+          value={editedVehicle.vehicle_name}
+          onChange={(e) =>
+            dispatch(
+              editVehicle({ ...editedVehicle, vehicle_name: e.target.value })
+            )
+          }
+        />
+        <input
+          type="number"
+          placeholder="year of release"
+          min="0"
+          value={editedVehicle.release_year}
+          onChange={(e) =>
+            dispatch(
+              editVehicle({ ...editedVehicle, release_year: e.target.value })
+            )
+          }
+        />
+        <input
+          type="number"
+          placeholder="price"
+          min="0"
+          step="0.01"
+          value={editedVehicle.price}
+          onChange={(e) =>
+            dispatch(editVehicle({ ...editedVehicle, price: e.target.value }))
+          }
+        />
+      </div>
+    </>
+  )
 }
 
 export default Vehicle
