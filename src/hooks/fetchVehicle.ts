@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { VehicleType } from '../../types/types'
+import { EditedVehicleType } from '../../types/types'
 
 const apiUrl = 'http://localhost:8000/'
 
@@ -16,7 +16,7 @@ export const fetchVehicle = () => {
 
   const fetchAsyncCreateVehicle = createAsyncThunk(
     'vehicle/post',
-    async (vehicle: Omit<VehicleType, 'id'>) => {
+    async (vehicle: Omit<EditedVehicleType, 'id'>) => {
       const res = await axios.post(`${apiUrl}api/vehicles/`, vehicle, {
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export const fetchVehicle = () => {
 
   const fetchAsyncUpdateVehicle = createAsyncThunk(
     'vehicle/put',
-    async (vehicle: VehicleType) => {
+    async (vehicle: EditedVehicleType) => {
       const res = await axios.put(
         `${apiUrl}api/vehicles/${vehicle.id}/`,
         vehicle,
