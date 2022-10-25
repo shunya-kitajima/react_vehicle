@@ -11,17 +11,50 @@ import Vehicle from './Vehicle'
 
 const MainPage: React.FC = () => {
   const navigate = useNavigate()
+  const profile = useAppSelector(selectProfile)
+  const dispatch = useAppDispatch()
+  const { fetchAsyncGetProfile } = fetchAuth()
 
   const logout = () => {
     localStorage.removeItem('token')
     navigate('/')
   }
 
+  useEffect(() => {
+    const fetchBootLoader = async () => {
+      await dispatch(fetchAsyncGetProfile())
+    }
+    fetchBootLoader()
+  }, [dispatch, fetchAsyncGetProfile])
+
   return (
-    <div>
-      <button data-testid="btn-logout" onClick={logout}>
-        Logout
-      </button>
+    <div className={styles.mainPage__root}>
+      <Grid container>
+        <Grid item xs>
+          {profile.username}
+        </Grid>
+        <Grid item xs>
+          <span data-testid="span-title" className={styles.maniPage__title}>
+            Vehicle register system
+          </span>
+        </Grid>
+        <Grid item xs>
+          <button data-testid="btn-logout" onClick={logout}>
+            Logout
+          </button>
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item xs={3}>
+          <Segment />
+        </Grid>
+        <Grid item xs={3}>
+          <Brand />
+        </Grid>
+        <Grid item xs={6}>
+          <Vehicle />
+        </Grid>
+      </Grid>
     </div>
   )
 }
