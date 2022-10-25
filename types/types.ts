@@ -1,14 +1,14 @@
-export type Segment = {
+export type SegmentType = {
   id: number
   segment_name: string
 }
 
-export type Brand = {
+export type BrandType = {
   id: number
   brand_name: string
 }
 
-export type Vehicle = {
+export type VehicleType = {
   id: number
   vehicle_name: string
   release_year: number
