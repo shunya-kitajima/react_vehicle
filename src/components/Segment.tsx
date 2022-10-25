@@ -43,7 +43,8 @@ const Segment: React.FC = () => {
         setSuccessMsg('Get error!')
     }
     fetchBootLoader()
-  }, [dispatch, fetchAsyncGetSegments])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
