@@ -145,3 +145,16 @@ export const fetchAsyncUpdateVehicle = createAsyncThunk(
     return res.data
   }
 )
+
+export const fetchAsyncDeleteVehicle = createAsyncThunk(
+  'vehicle/delete',
+  async (id: string) => {
+    const res = await axios.delete(`${apiUrl}api/vehicles/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `token ${localStorage.token}`,
+      },
+    })
+    return res.data
+  }
+)
