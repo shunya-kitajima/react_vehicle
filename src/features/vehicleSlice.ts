@@ -136,12 +136,16 @@ export const fetchAsyncCreateVehicle = createAsyncThunk(
 export const fetchAsyncUpdateVehicle = createAsyncThunk(
   'vehicle/put',
   async (vehicle: VehicleType) => {
-    const res = await axios.put(`${apiUrl}api/vehicles/${vehicle.id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `token ${localStorage.token}`,
-      },
-    })
+    const res = await axios.put(
+      `${apiUrl}api/vehicles/${vehicle.id}`,
+      vehicle,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `token ${localStorage.token}`,
+        },
+      }
+    )
     return res.data
   }
 )
