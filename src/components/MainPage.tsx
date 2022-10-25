@@ -34,7 +34,7 @@ const MainPage: React.FC = () => {
           {profile.username}
         </Grid>
         <Grid item xs>
-          <span data-testid="span-title" className={styles.maniPage__title}>
+          <span data-testid="span-title" className={styles.mainPage__title}>
             Vehicle register system
           </span>
         </Grid>
