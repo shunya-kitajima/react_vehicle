@@ -137,7 +137,7 @@ export const fetchAsyncUpdateVehicle = createAsyncThunk(
   'vehicle/put',
   async (vehicle: VehicleType) => {
     const res = await axios.put(
-      `${apiUrl}api/vehicles/${vehicle.id}`,
+      `${apiUrl}api/vehicles/${vehicle.id}/`,
       vehicle,
       {
         headers: {
@@ -153,7 +153,7 @@ export const fetchAsyncUpdateVehicle = createAsyncThunk(
 export const fetchAsyncDeleteVehicle = createAsyncThunk(
   'vehicle/delete',
   async (id: string) => {
-    const res = await axios.delete(`${apiUrl}api/vehicles/${id}`, {
+    const res = await axios.delete(`${apiUrl}api/vehicles/${id}/`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `token ${localStorage.token}`,
