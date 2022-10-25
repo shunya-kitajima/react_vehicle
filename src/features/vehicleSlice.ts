@@ -108,11 +108,37 @@ export const fetchAsyncDeleteBrand = createAsyncThunk(
   }
 )
 
-export const fetcheAsyncGetVehicles = createAsyncThunk(
+export const fetchAsyncGetVehicles = createAsyncThunk(
   'vehicle/get',
   async () => {
     const res = await axios.get(`${apiUrl}api/vehicles/`, {
       headers: {
+        Authorization: `token ${localStorage.token}`,
+      },
+    })
+    return res.data
+  }
+)
+
+export const fetchAsyncCreateVehicle = createAsyncThunk(
+  'vehicle/post',
+  async (vehicle: Omit<VehicleType, 'id'>) => {
+    const res = await axios.post(`${apiUrl}api/vehicles/`, vehicle, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `token ${localStorage.token}`,
+      },
+    })
+    return res.data
+  }
+)
+
+export const fetchAsyncUpdateVehicle = createAsyncThunk(
+  'vehicle/put',
+  async (vehicle: VehicleType) => {
+    const res = await axios.put(`${apiUrl}api/vehicles/${vehicle.id}`, {
+      headers: {
+        'Content-Type': 'application/json',
         Authorization: `token ${localStorage.token}`,
       },
     })
