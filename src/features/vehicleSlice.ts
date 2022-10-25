@@ -1,11 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../app/store'
+import { fetchSegment } from '../hooks/fetchSegment'
+import { fetchBrand } from '../hooks/fetchBrand'
+import { fetchVehicle } from '../hooks/fetchVehicle'
 import {
   SegmentType,
   BrandType,
   VehicleType,
   EditedVehicleType,
 } from '../../types/types'
+
+const {
+  fetchAsyncGetSegments,
+  fetchAsyncCreateSegment,
+  fetchAsyncUpdateSegment,
+  fetchAsyncDeleteSegment,
+} = fetchSegment()
 
 export interface VehicleState {
   segments: SegmentType[]
@@ -72,5 +82,38 @@ export const vehicleSlice = createSlice({
     editVehicle: (state, action) => {
       state.editedVehicle = action.payload
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchAsyncGetSegments.fulfilled, (state, action) => {
+      return {
+        ...state,
+        segments: action.payload,
+      }
+    })
+    builder.addCase(fetchAsyncCreateSegment.fulfilled, (state, action) => {
+      return {
+        ...state,
+        segments: [...state.segments, action.payload],
+      }
+    })
+    builder.addCase(fetchAsyncUpdateSegment.fulfilled, (state, action) => {
+      return {
+        ...state,
+        segments: state.segments.map((segment) =>
+          segment.id === action.payload.id ? action.payload : segment
+        ),
+      }
+    })
+    builder.addCase(fetchAsyncDeleteSegment.fulfilled, (state, action) => {
+      return {
+        ...state,
+        segments: state.segments.filter(
+          (segment) => segment.id !== action.payload
+        ),
+        vehicles: state.vehicles.filter(
+          (vehicle) => vehicle.segment !== action.payload
+        ),
+      }
+    })
   },
 })
