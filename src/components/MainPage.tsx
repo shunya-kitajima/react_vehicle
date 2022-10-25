@@ -25,7 +25,8 @@ const MainPage: React.FC = () => {
       await dispatch(fetchAsyncGetProfile())
     }
     fetchBootLoader()
-  }, [dispatch, fetchAsyncGetProfile])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={styles.mainPage__root}>
