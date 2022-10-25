@@ -60,7 +60,7 @@ export const fetchAsyncDeleteSegment = createAsyncThunk(
   }
 )
 
-export const fetchAsyncGetBrand = createAsyncThunk('brand/get', async () => {
+export const fetchAsyncGetBrands = createAsyncThunk('brand/get', async () => {
   const res = await axios.get(`${apiUrl}api/brands/`, {
     headers: {
       Authorization: `token ${localStorage.token}`,
