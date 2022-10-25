@@ -82,6 +82,26 @@ const Vehicle: React.FC = () => {
           }
         />
       </div>
+      <select
+        data-testid="select-segment"
+        value={editedVehicle.segment}
+        onChange={(e) =>
+          dispatch(editVehicle({ ...editedVehicle, segment: e.target.value }))
+        }
+      >
+        <option value={0}>Segment</option>
+        {segmentOptions}
+      </select>
+      <select
+        data-testid="select-brand"
+        value={editedVehicle.brand}
+        onChange={(e) =>
+          dispatch(editVehicle({ ...editedVehicle, brand: e.target.value }))
+        }
+      >
+        <option value={0}>Brand</option>
+        {brandOptions}
+      </select>
     </>
   )
 }
