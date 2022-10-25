@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Segment: React.FC = () => {
-  return <div></div>
+  return <div>Segment</div>
 }
 
 export default Segment
