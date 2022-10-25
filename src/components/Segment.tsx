@@ -79,7 +79,7 @@ const Segment: React.FC = () => {
                   data-testid={`delete-segment-${segment.id}`}
                   onClick={async () => {
                     const result = await dispatch(
-                      fetchAsyncDeleteSegment(String(segment.id))
+                      fetchAsyncDeleteSegment(segment.id)
                     )
                     if (fetchAsyncDeleteSegment.fulfilled.match(result))
                       setSuccessMsg('Deleted segment!')

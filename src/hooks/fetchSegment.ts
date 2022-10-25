@@ -46,14 +46,14 @@ export const fetchSegment = () => {
 
   const fetchAsyncDeleteSegment = createAsyncThunk(
     'segment/delete',
-    async (id: string) => {
-      const res = await axios.delete(`${apiUrl}api/segments/${id}/`, {
+    async (id: number) => {
+      await axios.delete(`${apiUrl}api/segments/${id}/`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `token ${localStorage.token}`,
         },
       })
-      return res.data
+      return id
     }
   )
 
