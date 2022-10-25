@@ -72,7 +72,7 @@ export const fetchAsyncGetBrands = createAsyncThunk('brand/get', async () => {
 export const fetchAsyncCreateBrand = createAsyncThunk(
   'brand/post',
   async (brand: Omit<BrandType, 'id'>) => {
-    const res = await axios.post(`${apiUrl}api/segments/`, brand, {
+    const res = await axios.post(`${apiUrl}api/brands/`, brand, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `token ${localStorage.token}`,
