@@ -11,6 +11,19 @@ import {
 } from '../features/vehicleSlice'
 
 const Vehicle: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const segments = useAppSelector(selectSegments)
+  const brands = useAppSelector(selectBrands)
+  const vehicles = useAppSelector(selectVehicles)
+  const editedVehicle = useAppSelector(selectEditedVehicle)
+  const [successMsg, setSuccessMsg] = useState('')
+  const {
+    fetchAsyncGetVehicles,
+    fetchAsyncCreateVehicle,
+    fetchAsyncUpdateVehicle,
+    fetchAsyncDeleteVehicle,
+  } = fetchVehicle()
+
   return <div>Vehicle</div>
 }
 
