@@ -1,3 +1,8 @@
+export type AuthType = {
+  username: string
+  password: string
+}
+
 export type SegmentType = {
   id: number
   segment_name: string
