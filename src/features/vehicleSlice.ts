@@ -160,5 +160,34 @@ export const vehicleSlice = createSlice({
         ),
       }
     })
+
+    builder.addCase(fetchAsyncGetVehicles.fulfilled, (state, action) => {
+      return {
+        ...state,
+        vehicles: action.payload,
+      }
+    })
+    builder.addCase(fetchAsyncCreateVehicle.fulfilled, (state, action) => {
+      return {
+        ...state,
+        vehicles: [...state.vehicles, action.payload],
+      }
+    })
+    builder.addCase(fetchAsyncUpdateVehicle.fulfilled, (state, action) => {
+      return {
+        ...state,
+        vehicles: state.vehicles.map((vehicle) =>
+          vehicle.id === action.payload.id ? action.payload : vehicle
+        ),
+      }
+    })
+    builder.addCase(fetchAsyncDeleteVehicle.fulfilled, (state, action) => {
+      return {
+        ...state,
+        vehicles: state.vehicles.filter(
+          (vehicle) => vehicle.id !== action.payload
+        ),
+      }
+    })
   },
 })
