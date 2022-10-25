@@ -190,3 +190,11 @@ export const vehicleSlice = createSlice({
     })
   },
 })
+
+export const { editSegment, editBrand, editVehicle } = vehicleSlice.actions
+
+export const selectSegment = (state: RootState) => state.vehicle.segments
+export const selectBrand = (state: RootState) => state.vehicle.brands
+export const selectVehicle = (state: RootState) => state.vehicle.vehicles
+
+export default vehicleSlice.reducer
