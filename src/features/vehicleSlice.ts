@@ -9,7 +9,6 @@ import {
   VehicleType,
   EditedVehicleType,
 } from '../../types/types'
-import { Action } from '@remix-run/router'
 
 const {
   fetchAsyncGetSegments,
@@ -151,7 +150,7 @@ export const vehicleSlice = createSlice({
         ),
       }
     })
-    builder.addCase(fetchAsyncDeleteSegment.fulfilled, (state, action) => {
+    builder.addCase(fetchAsyncDeleteBrand.fulfilled, (state, action) => {
       return {
         ...state,
         brands: state.brands.filter((brand) => brand.id !== action.payload),
