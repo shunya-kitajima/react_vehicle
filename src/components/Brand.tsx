@@ -60,7 +60,7 @@ const Brand: React.FC = () => {
           }
         />
         <button
-          data-testid="btn-post"
+          data-testid="btn-brand-post"
           disabled={!editedBrand.brand_name}
           onClick={createUpdateBrand}
         >
@@ -69,7 +69,9 @@ const Brand: React.FC = () => {
         <ul>
           {brands.map((brand) => (
             <li className={styles.brand__item} key={brand.id}>
-              <span data-testid={`list-${brand.id}`}>{brand.brand_name}</span>
+              <span data-testid={`list-brand-${brand.id}`}>
+                {brand.brand_name}
+              </span>
               <div>
                 <button
                   data-testid={`delete-brand-${brand.id}`}

@@ -62,7 +62,7 @@ const Segment: React.FC = () => {
           }
         />
         <button
-          data-testid="btn-post"
+          data-testid="btn-segment-post"
           disabled={!editedSegment.segment_name}
           onClick={createUpdateSegment}
         >
@@ -71,7 +71,7 @@ const Segment: React.FC = () => {
         <ul>
           {segments.map((segment) => (
             <li className={styles.segment__item} key={segment.id}>
-              <span data-testid={`list-${segment.id}`}>
+              <span data-testid={`list-segment-${segment.id}`}>
                 {segment.segment_name}
               </span>
               <div>
