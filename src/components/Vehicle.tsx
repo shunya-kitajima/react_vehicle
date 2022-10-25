@@ -35,6 +35,38 @@ const Vehicle: React.FC = () => {
     </option>
   ))
 
+  const createUpdateVehicle = async () => {
+    if (editedVehicle.id === 0) {
+      const result = await dispatch(fetchAsyncCreateVehicle(editedVehicle))
+      dispatch(
+        editVehicle({
+          id: 0,
+          vehicle_name: '',
+          release_year: 2020,
+          price: 0.0,
+          segment: 0,
+          brand: 0,
+        })
+      )
+      if (fetchAsyncCreateVehicle.fulfilled.match(result))
+        setSuccessMsg('Created vehicle!')
+    } else {
+      const result = await dispatch(fetchAsyncUpdateVehicle(editedVehicle))
+      dispatch(
+        editVehicle({
+          id: 0,
+          vehicle_name: '',
+          release_year: 2020,
+          price: 0.0,
+          segment: 0,
+          brand: 0,
+        })
+      )
+      if (fetchAsyncUpdateVehicle.fulfilled.match(result))
+        setSuccessMsg('Updated vehicle!')
+    }
+  }
+
   useEffect(() => {
     const fetchBootLoader = async () => {
       const result = await dispatch(fetchAsyncGetVehicles())
@@ -102,6 +134,52 @@ const Vehicle: React.FC = () => {
         <option value={0}>Brand</option>
         {brandOptions}
       </select>
+      <button
+        data-testid="btn-vehicle-post"
+        disabled={
+          !editedVehicle.vehicle_name ||
+          !editedVehicle.segment ||
+          !editedVehicle.brand
+        }
+        onClick={createUpdateVehicle}
+      >
+        {editedVehicle.id === 0 ? 'Create' : 'Update'}
+      </button>
+      <ul>
+        {vehicles?.map((vehicle) => (
+          <li className={styles.vehicle__item} key={vehicle.id}>
+            <span data-testid={`list-vehicle-${vehicle.id}`}>
+              <strong data-testid={`name-vehicle-${vehicle.id}`}>
+                {vehicle.vehicle_name}
+              </strong>
+              --{vehicle.release_year}--- ¥{vehicle.price} [M] ---
+              {vehicle.segment_name} {vehicle.brand_name}---
+            </span>
+            <div>
+              <button
+                data-testid={`delete-vehicle-${vehicle.id}`}
+                onClick={async () => {
+                  const result = await dispatch(
+                    fetchAsyncDeleteVehicle(vehicle.id)
+                  )
+                  if (fetchAsyncDeleteVehicle.fulfilled.match(result))
+                    setSuccessMsg('Deleted vehicle!')
+                }}
+              >
+                delete
+              </button>
+              <button
+                data-testid={`edit-vehicle-${vehicle.id}`}
+                onClick={() => {
+                  dispatch(editVehicle(vehicle))
+                }}
+              >
+                edit
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </>
   )
 }
