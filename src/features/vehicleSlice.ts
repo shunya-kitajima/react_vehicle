@@ -9,6 +9,7 @@ import {
   VehicleType,
   EditedVehicleType,
 } from '../../types/types'
+import { Action } from '@remix-run/router'
 
 const {
   fetchAsyncGetSegments,
@@ -16,6 +17,20 @@ const {
   fetchAsyncUpdateSegment,
   fetchAsyncDeleteSegment,
 } = fetchSegment()
+
+const {
+  fetchAsyncGetBrands,
+  fetchAsyncCreateBrand,
+  fetchAsyncUpdateBrand,
+  fetchAsyncDeleteBrand,
+} = fetchBrand()
+
+const {
+  fetchAsyncGetVehicles,
+  fetchAsyncCreateVehicle,
+  fetchAsyncUpdateVehicle,
+  fetchAsyncDeleteVehicle,
+} = fetchVehicle()
 
 export interface VehicleState {
   segments: SegmentType[]
@@ -112,6 +127,36 @@ export const vehicleSlice = createSlice({
         ),
         vehicles: state.vehicles.filter(
           (vehicle) => vehicle.segment !== action.payload
+        ),
+      }
+    })
+
+    builder.addCase(fetchAsyncGetBrands.fulfilled, (state, action) => {
+      return {
+        ...state,
+        brands: action.payload,
+      }
+    })
+    builder.addCase(fetchAsyncCreateBrand.fulfilled, (state, action) => {
+      return {
+        ...state,
+        brands: [...state.brands, action.payload],
+      }
+    })
+    builder.addCase(fetchAsyncUpdateBrand.fulfilled, (state, action) => {
+      return {
+        ...state,
+        brands: state.brands.map((brand) =>
+          brand.id === action.payload.id ? action.payload : brand
+        ),
+      }
+    })
+    builder.addCase(fetchAsyncDeleteSegment.fulfilled, (state, action) => {
+      return {
+        ...state,
+        brands: state.brands.filter((brand) => brand.id !== action.payload),
+        vehicles: state.vehicles.filter(
+          (vehicle) => vehicle.brand !== action.payload
         ),
       }
     })
