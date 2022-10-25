@@ -81,3 +81,16 @@ export const fetchAsyncCreateBrand = createAsyncThunk(
     return res.data
   }
 )
+
+export const fetchAsyncUpdateBrand = createAsyncThunk(
+  'brand/put',
+  async (brand: BrandType) => {
+    const res = await axios.put(`${apiUrl}api/brands/${brand.id}/`, brand, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `token ${localStorage.token}`,
+      },
+    })
+    return res.data
+  }
+)
