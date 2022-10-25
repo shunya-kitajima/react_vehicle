@@ -107,3 +107,15 @@ export const fetchAsyncDeleteBrand = createAsyncThunk(
     return res.data
   }
 )
+
+export const fetcheAsyncGetVehicles = createAsyncThunk(
+  'vehicle/get',
+  async () => {
+    const res = await axios.get(`${apiUrl}api/vehicles/`, {
+      headers: {
+        Authorization: `token ${localStorage.token}`,
+      },
+    })
+    return res.data
+  }
+)
