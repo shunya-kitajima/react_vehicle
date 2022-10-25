@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../app/hooks'
+import { useAppDispatch } from '../app/hooks'
 import { FlipCameraAndroid } from '@material-ui/icons'
 import styles from './Auth.module.css'
 import { fetchAuth } from '../hooks/fetchAuth'
@@ -44,7 +44,39 @@ const Auth: React.FC = () => {
     }
   }
 
-  return <div>Welcome to Auth</div>
+  return (
+    <div className={styles.auth__root}>
+      <span className={styles.auth__status}>{successMsg}</span>
+      <form onSubmit={authUser}>
+        <div className={styles.auth__input}>
+          <label data-testid="label-username">Username: </label>
+          <input
+            data-testid="input-username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className={styles.auth__input}>
+          <label data-testid="label-password">Password: </label>
+          <input
+            data-testid="input-password"
+            type="text"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">{isLogin ? 'Login' : 'Register'}</button>
+        <div>
+          <FlipCameraAndroid
+            data-testid="toggle-icon"
+            className={styles.auth__toggle}
+            onClick={() => setIsLogin(!isLogin)}
+          />
+        </div>
+      </form>
+    </div>
+  )
 }
 
 export default Auth
