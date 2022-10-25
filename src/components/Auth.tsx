@@ -61,7 +61,7 @@ const Auth: React.FC = () => {
           <label data-testid="label-password">Password: </label>
           <input
             data-testid="input-password"
-            type="text"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
