@@ -75,7 +75,7 @@ const Brand: React.FC = () => {
                   data-testid={`delete-brand-${brand.id}`}
                   onClick={async () => {
                     const result = await dispatch(
-                      fetchAsyncDeleteBrand(editedBrand.id)
+                      fetchAsyncDeleteBrand(brand.id)
                     )
                     if (fetchAsyncDeleteBrand.fulfilled.match(result))
                       setSuccessMsg('Delete brand!')
