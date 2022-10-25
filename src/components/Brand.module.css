@@ -4,6 +4,6 @@
 
 .brand__item {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   padding-bottom: 5px;
 }
