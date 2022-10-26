@@ -4,7 +4,7 @@
 import '@testing-library/jest-dom/extend-expect'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { configureStore } from '@reduxjs/toolkit'
+import { AnyAction, configureStore, Store } from '@reduxjs/toolkit'
 import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
@@ -41,12 +41,25 @@ afterAll(() => {
 })
 
 describe('Auth Component Test Cases', () => {
-  let store
+  let store: Store<any, AnyAction>
   beforeEach(() => {
     store = configureStore({
       reducer: {
         auth: authReducer,
       },
     })
+  })
+  it('1: Should render all the elements correctly', async () => {
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    expect(screen.getByTestId('label-username')).toBeTruthy()
+    expect(screen.getByTestId('label-password')).toBeTruthy()
+    expect(screen.getByTestId('input-username')).toBeTruthy()
+    expect(screen.getByTestId('input-password')).toBeTruthy()
+    expect(screen.getByRole('button')).toBeTruthy()
+    expect(screen.getByTestId('toggle-icon')).toBeTruthy()
   })
 })
