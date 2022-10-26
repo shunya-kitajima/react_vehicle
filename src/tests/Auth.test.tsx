@@ -78,7 +78,7 @@ describe('Auth Component Test Cases', () => {
         <Auth />
       </Provider>
     )
-    await userEvent.click(screen.getByText('Text'))
+    await userEvent.click(screen.getByText('Login'))
     expect(
       await screen.findByText('Successfully logged in!')
     ).toBeInTheDocument()
