@@ -71,5 +71,18 @@ describe('Auth Component Test Cases', () => {
     expect(screen.getByRole('button')).toHaveTextContent('Login')
     await userEvent.click(screen.getByTestId('toggle-icon'))
     expect(screen.getByRole('button')).toHaveTextContent('Register')
+    it('3: Should route to MainPage when login is successful', async () => {
+      render(
+        <Provider store={store}>
+          <Auth />
+        </Provider>
+      )
+      await userEvent.click(screen.getByText('Text'))
+      expect(
+        await screen.findByText('Successfully logged in!')
+      ).toBeInTheDocument()
+      expect(mockNavigate).toBeCalledWith('/vehicle')
+      expect(mockNavigate).toHaveBeenCalledTimes(1)
+    })
   })
 })
