@@ -62,4 +62,14 @@ describe('Auth Component Test Cases', () => {
     expect(screen.getByRole('button')).toBeTruthy()
     expect(screen.getByTestId('toggle-icon')).toBeTruthy()
   })
+  it('2: Should change button name by icon click', async () => {
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    expect(screen.getByRole('button')).toHaveTextContent('Login')
+    await userEvent.click(screen.getByTestId('toggle-icon'))
+    expect(screen.getByRole('button')).toHaveTextContent('Register')
+  })
 })
