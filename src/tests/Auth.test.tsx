@@ -24,7 +24,7 @@ const handlers = [
     return res(ctx.status(200), ctx.json({ token: 'abc123' }))
   }),
   rest.post('http://localhost:8000/api/create/', (req, res, ctx) => {
-    return res(ctx.status(200))
+    return res(ctx.status(201))
   }),
 ]
 
@@ -38,4 +38,15 @@ afterEach(() => {
 })
 afterAll(() => {
   server.close()
+})
+
+describe('Auth Component Test Cases', () => {
+  let store
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        auth: authReducer,
+      },
+    })
+  })
 })
