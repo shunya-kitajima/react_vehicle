@@ -2,14 +2,12 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom/extend-expect'
-import React from 'react'
 import { Provider } from 'react-redux'
 import { AnyAction, configureStore, Store } from '@reduxjs/toolkit'
 import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { fetchAuth } from '../hooks/fetchAuth'
 import authReducer from '../features/authSlice'
 import Auth from '../components/Auth'
 
@@ -97,6 +95,55 @@ describe('Auth Component Test Cases', () => {
       </Provider>
     )
     await userEvent.click(screen.getByText('Login'))
+    expect(await screen.findByText('Login error!')).toBeInTheDocument()
+    expect(mockNavigate).toHaveBeenCalledTimes(0)
+  })
+  it('5: Should output success msg when registration succeeded', async () => {
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    await userEvent.click(screen.getByTestId('toggle-icon'))
+    expect(screen.getByRole('button')).toHaveTextContent('Register')
+    await userEvent.click(screen.getByText('Register'))
+    expect(
+      await screen.findByText('Successfully logged in!')
+    ).toBeInTheDocument()
+    expect(mockNavigate).toBeCalledWith('/vehicle')
+    expect(mockNavigate).toHaveBeenCalledTimes(1)
+  })
+  it('6: Should output error msg when registration failed', async () => {
+    server.use(
+      rest.post('http://localhost:8000/api/create/', (req, res, ctx) => {
+        return res(ctx.status(400))
+      })
+    )
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    await userEvent.click(screen.getByTestId('toggle-icon'))
+    expect(screen.getByRole('button')).toHaveTextContent('Register')
+    await userEvent.click(screen.getByText('Register'))
+    expect(await screen.findByText('Registration error!')).toBeInTheDocument()
+    expect(mockNavigate).toHaveBeenCalledTimes(0)
+  })
+  it('7: Should output error msg when registration succeeded but login failed', async () => {
+    server.use(
+      rest.post('http://localhost:8000/api/auth/', (req, res, ctx) => {
+        return res(ctx.status(400))
+      })
+    )
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    await userEvent.click(screen.getByTestId('toggle-icon'))
+    expect(screen.getByRole('button')).toHaveTextContent('Register')
+    await userEvent.click(screen.getByText('Register'))
     expect(await screen.findByText('Login error!')).toBeInTheDocument()
     expect(mockNavigate).toHaveBeenCalledTimes(0)
   })
