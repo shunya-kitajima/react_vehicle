@@ -85,4 +85,19 @@ describe('Auth Component Test Cases', () => {
     expect(mockNavigate).toBeCalledWith('/vehicle')
     expect(mockNavigate).toHaveBeenCalledTimes(1)
   })
+  it('4: Should not route to MainPage when login is failed', async () => {
+    server.use(
+      rest.post('http://localhost:8000/api/auth/', (req, res, ctx) => {
+        return res(ctx.status(400))
+      })
+    )
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    await userEvent.click(screen.getByText('Login'))
+    expect(await screen.findByText('Login error!')).toBeInTheDocument()
+    expect(mockNavigate).toHaveBeenCalledTimes(0)
+  })
 })
