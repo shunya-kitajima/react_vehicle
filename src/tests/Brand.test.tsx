@@ -22,13 +22,13 @@ const handlers = [
     )
   }),
   rest.post('http://localhost:8000/api/brands/', (req, res, ctx) => {
-    return res(ctx.status(201), ctx.json([{ id: 3, brand_name: 'Audi' }]))
+    return res(ctx.status(201), ctx.json({ id: 3, brand_name: 'Audi' }))
   }),
   rest.put('http://localhost:8000/api/brands/1/', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json([{ id: 1, brand_name: 'new Toyota' }]))
+    return res(ctx.status(200), ctx.json({ id: 1, brand_name: 'new Toyota' }))
   }),
   rest.put('http://localhost:8000/api/brands/2/', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json([{ id: 2, brand_name: 'new Tesla' }]))
+    return res(ctx.status(200), ctx.json({ id: 2, brand_name: 'new Tesla' }))
   }),
   rest.delete('http://localhost:8000/api/brands/1/', (req, res, ctx) => {
     return res(ctx.status(200))
