@@ -69,11 +69,40 @@ describe('Brand Component Test Cases', () => {
     expect(screen.getByRole('textbox')).toBeTruthy()
     expect(screen.getByTestId('btn-brand-post')).toBeTruthy()
     expect(await screen.findByText('Toyota')).toBeTruthy()
-    expect(screen.getByTestId('list-brand-1')).toBeTruthy()
+    expect(screen.getAllByRole('listitem')[0]).toBeTruthy()
     expect(screen.getByTestId('delete-brand-1')).toBeTruthy()
     expect(screen.getByTestId('edit-brand-1')).toBeTruthy()
-    expect(screen.getByTestId('list-brand-2')).toBeTruthy()
+    expect(screen.getAllByRole('listitem')[1]).toBeTruthy()
     expect(screen.getByTestId('delete-brand-2')).toBeTruthy()
     expect(screen.getByTestId('edit-brand-2')).toBeTruthy()
+  })
+  it('2: Should render list of brands from REST API', async () => {
+    render(
+      <Provider store={store}>
+        <Brand />
+      </Provider>
+    )
+    expect(screen.queryByText('Toyota')).toBeNull()
+    expect(screen.queryByText('Tesla')).toBeNull()
+    expect(await screen.findByText('Toyota')).toBeTruthy()
+    expect(screen.getByTestId('list-brand-1').textContent).toBe('Toyota')
+    expect(screen.getByTestId('list-brand-2').textContent).toBe('Tesla')
+  })
+  it('3: Should not render list of brands from REST API Whe rejected', async () => {
+    server.use(
+      rest.get('http://localhost:8000/api/brands/', (req, res, ctx) => {
+        return res(ctx.status(400))
+      })
+    )
+    render(
+      <Provider store={store}>
+        <Brand />
+      </Provider>
+    )
+    expect(screen.queryByText('Toyota')).toBeNull()
+    expect(screen.queryByText('Tesla')).toBeNull()
+    expect(await screen.findByText('Get error!')).toBeInTheDocument()
+    expect(screen.queryByText('Toyota')).toBeNull()
+    expect(screen.queryByText('Tesla')).toBeNull()
   })
 })
