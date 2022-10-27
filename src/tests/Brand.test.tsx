@@ -105,4 +105,20 @@ describe('Brand Component Test Cases', () => {
     expect(screen.queryByText('Toyota')).toBeNull()
     expect(screen.queryByText('Tesla')).toBeNull()
   })
+  it('4: Should add new brand and also to the list', async () => {
+    render(
+      <Provider store={store}>
+        <Brand />
+      </Provider>
+    )
+    expect(screen.queryByText('Audi')).toBeNull()
+    await userEvent.click(screen.getByTestId('btn-brand-post'))
+    expect(screen.queryByText('Audi')).toBeNull()
+    const inputValue = screen.getByPlaceholderText('new brand name')
+    await userEvent.type(inputValue, 'Audi')
+    await userEvent.click(screen.getByTestId('btn-brand-post'))
+    expect(await screen.findByText('Audi')).toBeInTheDocument()
+    expect(screen.getByTestId('delete-brand-3')).toBeTruthy()
+    expect(screen.getByTestId('edit-brand-3')).toBeTruthy()
+  })
 })
