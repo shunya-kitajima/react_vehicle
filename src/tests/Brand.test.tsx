@@ -121,4 +121,15 @@ describe('Brand Component Test Cases', () => {
     expect(screen.getByTestId('delete-brand-3')).toBeTruthy()
     expect(screen.getByTestId('edit-brand-3')).toBeTruthy()
   })
+  it('5: Should delete brand(id 1) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Brand />
+      </Provider>
+    )
+    expect(await screen.findByText('Toyota')).toBeTruthy()
+    await userEvent.click(screen.getByTestId('delete-brand-1'))
+    expect(await screen.findByText('Delete brand!')).toBeTruthy()
+    expect(screen.queryByText('Toyota')).toBeNull()
+  })
 })
