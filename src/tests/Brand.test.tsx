@@ -8,7 +8,6 @@ import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import authReducer from '../features/authSlice'
 import vehicleReducer from '../features/vehicleSlice'
 import Brand from '../components/Brand'
 
@@ -49,4 +48,30 @@ afterEach(() => {
 })
 afterAll(() => {
   server.close()
+})
+
+describe('Brand Component Test Cases', () => {
+  let store: Store<any, AnyAction>
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        vehicle: vehicleReducer,
+      },
+    })
+  })
+  it('1: Should render all the elements correctly', async () => {
+    render(
+      <Provider store={store}>
+        <Brand />
+      </Provider>
+    )
+    expect(screen.getByTestId('h3-brand')).toBeTruthy()
+    expect(screen.getByTestId('btn-brand-post')).toBeTruthy()
+    expect(screen.getByTestId('list-brand-1')).toBeTruthy()
+    expect(screen.getByTestId('delete-brand-1')).toBeTruthy()
+    expect(screen.getByTestId('edit-brand-1')).toBeTruthy()
+    expect(screen.getByTestId('list-brand-2')).toBeTruthy()
+    expect(screen.getByTestId('delete-brand-2')).toBeTruthy()
+    expect(screen.getByTestId('edit-brand-2')).toBeTruthy()
+  })
 })
