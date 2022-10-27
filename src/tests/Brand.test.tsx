@@ -66,6 +66,7 @@ describe('Brand Component Test Cases', () => {
       </Provider>
     )
     expect(screen.getByTestId('h3-brand')).toBeTruthy()
+    expect(screen.getByRole('textbox')).toBeTruthy()
     expect(screen.getByTestId('btn-brand-post')).toBeTruthy()
     expect(screen.getByTestId('list-brand-1')).toBeTruthy()
     expect(screen.getByTestId('delete-brand-1')).toBeTruthy()
