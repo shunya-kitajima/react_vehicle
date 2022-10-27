@@ -117,6 +117,7 @@ describe('Brand Component Test Cases', () => {
     const inputValue = screen.getByPlaceholderText('new brand name')
     await userEvent.type(inputValue, 'Audi')
     await userEvent.click(screen.getByTestId('btn-brand-post'))
+    expect(await screen.findByText('Created brand!')).toBeTruthy()
     expect(await screen.findByText('Audi')).toBeInTheDocument()
     expect(screen.getByTestId('delete-brand-3')).toBeTruthy()
     expect(screen.getByTestId('edit-brand-3')).toBeTruthy()
@@ -142,5 +143,19 @@ describe('Brand Component Test Cases', () => {
     await userEvent.click(screen.getByTestId('delete-brand-2'))
     expect(await screen.findByText('Delete brand!')).toBeTruthy()
     expect(screen.queryByText('Tesla')).toBeNull()
+  })
+  it('7: Should update brand(id 1) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Brand />
+      </Provider>
+    )
+    expect(await screen.findByText('Toyota')).toBeTruthy()
+    await userEvent.click(screen.getByTestId('edit-brand-1'))
+    const inputValue = screen.getByPlaceholderText('new brand name')
+    await userEvent.type(inputValue, 'new Toyota')
+    await userEvent.click(screen.getByTestId('btn-brand-post'))
+    expect(await screen.findByText('Updated brand!')).toBeTruthy()
+    expect(screen.getByTestId('list-brand-1').textContent).toBe('new Toyota')
   })
 })
