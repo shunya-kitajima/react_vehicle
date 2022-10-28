@@ -144,4 +144,18 @@ describe('Segment Component Test Cases', () => {
     expect(await screen.findByText('Deleted segment!')).toBeInTheDocument()
     expect(screen.queryByText('EV')).toBeNull()
   })
+  it('7: Should update segment(id 1) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+      </Provider>
+    )
+    expect(await screen.findByText('K-CAR')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('edit-segment-1'))
+    const inputValue = screen.getByPlaceholderText('new segment name')
+    await userEvent.type(inputValue, 'new K-CAR')
+    await userEvent.click(screen.getByTestId('btn-segment-post'))
+    expect(await screen.findByText('Updated segment!')).toBeInTheDocument()
+    expect(screen.getByTestId('list-segment-1').textContent).toBe('new K-CAR')
+  })
 })
