@@ -150,7 +150,7 @@ describe('Brand Component Test Cases', () => {
         <Brand />
       </Provider>
     )
-    expect(await screen.findByText('Toyota')).toBeTruthy()
+    expect(await screen.findByText('Toyota')).toBeInTheDocument()
     await userEvent.click(screen.getByTestId('edit-brand-1'))
     const inputValue = screen.getByPlaceholderText('new brand name')
     await userEvent.type(inputValue, 'new Toyota')
