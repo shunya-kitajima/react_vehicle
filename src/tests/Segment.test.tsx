@@ -62,4 +62,21 @@ describe('Segment Component Test Cases', () => {
       },
     })
   })
+  it('1: Should render all the elements correctly', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+      </Provider>
+    )
+    expect(screen.getByTestId('h3-segment')).toBeTruthy()
+    expect(screen.getByRole('textbox')).toBeTruthy()
+    expect(screen.getByTestId('btn-segment-post')).toBeTruthy()
+    expect(await screen.findAllByText('K-CAR')).toBeTruthy()
+    expect(screen.getAllByRole('listitem')[0]).toBeTruthy()
+    expect(screen.getByTestId('delete-segment-1')).toBeTruthy()
+    expect(screen.getByTestId('edit-segment-1')).toBeTruthy()
+    expect(screen.getAllByRole('listitem')[1]).toBeTruthy()
+    expect(screen.getByTestId('delete-segment-2')).toBeTruthy()
+    expect(screen.getByTestId('edit-segment-2')).toBeTruthy()
+  })
 })
