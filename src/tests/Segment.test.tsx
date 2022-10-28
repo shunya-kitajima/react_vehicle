@@ -158,4 +158,18 @@ describe('Segment Component Test Cases', () => {
     expect(await screen.findByText('Updated segment!')).toBeInTheDocument()
     expect(screen.getByTestId('list-segment-1').textContent).toBe('new K-CAR')
   })
+  it('8: Should update segment(id 2) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+      </Provider>
+    )
+    expect(await screen.findByText('EV')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('edit-segment-2'))
+    const inputValue = screen.getByPlaceholderText('new segment name')
+    await userEvent.type(inputValue, 'new EV')
+    await userEvent.click(screen.getByTestId('btn-segment-post'))
+    expect(await screen.findByText('Updated segment!')).toBeInTheDocument()
+    expect(screen.getByTestId('list-segment-2').textContent).toBe('new EV')
+  })
 })
