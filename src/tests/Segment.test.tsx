@@ -133,4 +133,15 @@ describe('Segment Component Test Cases', () => {
     expect(await screen.findByText('Deleted segment!')).toBeInTheDocument()
     expect(screen.queryByText('K-CAR')).toBeNull()
   })
+  it('6: Should delete segment(id 2) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+      </Provider>
+    )
+    expect(await screen.findByText('EV')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('delete-segment-2'))
+    expect(await screen.findByText('Deleted segment!')).toBeInTheDocument()
+    expect(screen.queryByText('EV')).toBeNull()
+  })
 })
