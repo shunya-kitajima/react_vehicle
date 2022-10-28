@@ -122,4 +122,15 @@ describe('Segment Component Test Cases', () => {
     expect(screen.getByTestId('delete-segment-3')).toBeTruthy()
     expect(screen.getByTestId('edit-segment-3')).toBeTruthy()
   })
+  it('5: Should delete segment(id 1) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+      </Provider>
+    )
+    expect(await screen.findByText('K-CAR')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('delete-segment-1'))
+    expect(await screen.findByText('Deleted segment!')).toBeInTheDocument()
+    expect(screen.queryByText('K-CAR')).toBeNull()
+  })
 })
