@@ -91,4 +91,21 @@ describe('Segment Component Test Cases', () => {
     expect(screen.getByTestId('list-segment-1').textContent).toBe('K-CAR')
     expect(screen.getByTestId('list-segment-2').textContent).toBe('EV')
   })
+  it('3: Should not render list of segment from REST API', async () => {
+    server.use(
+      rest.get('http://localhost:8000/api/segments/', (req, res, ctx) => {
+        return res(ctx.status(400))
+      })
+    )
+    render(
+      <Provider store={store}>
+        <Segment />
+      </Provider>
+    )
+    expect(screen.queryByText('K-CAR')).toBeNull()
+    expect(screen.queryByText('EV')).toBeNull()
+    expect(await screen.findByText('Get error!')).toBeTruthy()
+    expect(screen.queryByText('K-CAR')).toBeNull()
+    expect(screen.queryByText('EV')).toBeNull()
+  })
 })
