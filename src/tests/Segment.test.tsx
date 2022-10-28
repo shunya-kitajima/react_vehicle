@@ -79,4 +79,16 @@ describe('Segment Component Test Cases', () => {
     expect(screen.getByTestId('delete-segment-2')).toBeTruthy()
     expect(screen.getByTestId('edit-segment-2')).toBeTruthy()
   })
+  it('2: Should render list of segments from REST API', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+      </Provider>
+    )
+    expect(screen.queryByText('K-CAR')).toBeNull()
+    expect(screen.queryByText('EV')).toBeNull()
+    expect(await screen.findByText('K-CAR')).toBeTruthy()
+    expect(screen.getByTestId('list-segment-1')).toBeTruthy()
+    expect(screen.getByTestId('list-segment-2')).toBeTruthy()
+  })
 })
