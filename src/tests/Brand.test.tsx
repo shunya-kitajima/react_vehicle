@@ -84,7 +84,7 @@ describe('Brand Component Test Cases', () => {
     )
     expect(screen.queryByText('Toyota')).toBeNull()
     expect(screen.queryByText('Tesla')).toBeNull()
-    expect(await screen.findByText('Toyota')).toBeTruthy()
+    expect(await screen.findByText('Toyota')).toBeInTheDocument()
     expect(screen.getByTestId('list-brand-1').textContent).toBe('Toyota')
     expect(screen.getByTestId('list-brand-2').textContent).toBe('Tesla')
   })
