@@ -25,10 +25,7 @@ const handlers = [
     return res(ctx.status(201), ctx.json({ id: 3, segment_name: 'Large-SUV' }))
   }),
   rest.put('http://localhost:8000/api/segments/1/', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({ id: 1, segment_name: 'new Large-SUV' })
-    )
+    return res(ctx.status(200), ctx.json({ id: 1, segment_name: 'new K-CAR' }))
   }),
   rest.put('http://localhost:8000/api/segments/2/', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ id: 2, segment_name: 'new EV' }))
@@ -87,7 +84,7 @@ describe('Segment Component Test Cases', () => {
     )
     expect(screen.queryByText('K-CAR')).toBeNull()
     expect(screen.queryByText('EV')).toBeNull()
-    expect(await screen.findByText('K-CAR')).toBeTruthy()
+    expect(await screen.findByText('K-CAR')).toBeInTheDocument()
     expect(screen.getByTestId('list-segment-1').textContent).toBe('K-CAR')
     expect(screen.getByTestId('list-segment-2').textContent).toBe('EV')
   })
@@ -104,8 +101,25 @@ describe('Segment Component Test Cases', () => {
     )
     expect(screen.queryByText('K-CAR')).toBeNull()
     expect(screen.queryByText('EV')).toBeNull()
-    expect(await screen.findByText('Get error!')).toBeTruthy()
+    expect(await screen.findByText('Get error!')).toBeInTheDocument()
     expect(screen.queryByText('K-CAR')).toBeNull()
     expect(screen.queryByText('EV')).toBeNull()
+  })
+  it('4: Should add new segment and also to the list', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+      </Provider>
+    )
+    expect(screen.queryByText('Large-SUV')).toBeNull()
+    await userEvent.click(screen.getByTestId('btn-segment-post'))
+    expect(screen.queryByText('Large-SUV')).toBeNull()
+    const inputValue = screen.getByPlaceholderText('new segment name')
+    await userEvent.type(inputValue, 'Large-SUV')
+    await userEvent.click(screen.getByTestId('btn-segment-post'))
+    expect(await screen.findByText('Created segment!')).toBeInTheDocument()
+    expect(await screen.findByText('Large-SUV')).toBeInTheDocument()
+    expect(screen.getByTestId('delete-segment-3')).toBeTruthy()
+    expect(screen.getByTestId('edit-segment-3')).toBeTruthy()
   })
 })
