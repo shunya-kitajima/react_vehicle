@@ -117,7 +117,7 @@ describe('Brand Component Test Cases', () => {
     const inputValue = screen.getByPlaceholderText('new brand name')
     await userEvent.type(inputValue, 'Audi')
     await userEvent.click(screen.getByTestId('btn-brand-post'))
-    expect(await screen.findByText('Created brand!')).toBeTruthy()
+    expect(await screen.findByText('Created brand!')).toBeInTheDocument()
     expect(await screen.findByText('Audi')).toBeInTheDocument()
     expect(screen.getByTestId('delete-brand-3')).toBeTruthy()
     expect(screen.getByTestId('edit-brand-3')).toBeTruthy()
@@ -130,7 +130,7 @@ describe('Brand Component Test Cases', () => {
     )
     expect(await screen.findByText('Toyota')).toBeTruthy()
     await userEvent.click(screen.getByTestId('delete-brand-1'))
-    expect(await screen.findByText('Delete brand!')).toBeTruthy()
+    expect(await screen.findByText('Delete brand!')).toBeInTheDocument()
     expect(screen.queryByText('Toyota')).toBeNull()
   })
   it('6: Should delete brand(id 2) and also from list', async () => {
@@ -141,7 +141,7 @@ describe('Brand Component Test Cases', () => {
     )
     expect(await screen.findByText('Tesla')).toBeInTheDocument()
     await userEvent.click(screen.getByTestId('delete-brand-2'))
-    expect(await screen.findByText('Delete brand!')).toBeTruthy()
+    expect(await screen.findByText('Delete brand!')).toBeInTheDocument()
     expect(screen.queryByText('Tesla')).toBeNull()
   })
   it('7: Should update brand(id 1) and also from list', async () => {
@@ -155,7 +155,7 @@ describe('Brand Component Test Cases', () => {
     const inputValue = screen.getByPlaceholderText('new brand name')
     await userEvent.type(inputValue, 'new Toyota')
     await userEvent.click(screen.getByTestId('btn-brand-post'))
-    expect(await screen.findByText('Updated brand!')).toBeTruthy()
+    expect(await screen.findByText('Updated brand!')).toBeInTheDocument()
     expect(screen.getByTestId('list-brand-1').textContent).toBe('new Toyota')
   })
   it('8: Should update brand(id 2) and also from list', async () => {
@@ -164,12 +164,12 @@ describe('Brand Component Test Cases', () => {
         <Brand />
       </Provider>
     )
-    expect(await screen.findByText('Tesla')).toBeTruthy()
+    expect(await screen.findByText('Tesla')).toBeInTheDocument()
     await userEvent.click(screen.getByTestId('edit-brand-2'))
     const inputValue = screen.getByPlaceholderText('new brand name')
     await userEvent.type(inputValue, 'new Tesla')
     await userEvent.click(screen.getByTestId('btn-brand-post'))
-    expect(await screen.findByText('Updated brand!')).toBeTruthy()
+    expect(await screen.findByText('Updated brand!')).toBeInTheDocument()
     expect(screen.getByTestId('list-brand-2').textContent).toBe('new Tesla')
   })
 })
