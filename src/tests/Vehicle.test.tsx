@@ -195,4 +195,30 @@ describe('Vehicle Component Test Cases', () => {
     expect(screen.queryByText('SQ7')).toBeNull()
     expect(screen.queryByText('MODEL S')).toBeNull()
   })
+  it('4: Should add new vehicle and also to the list', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+        <Brand />
+        <Vehicle />
+      </Provider>
+    )
+    expect(screen.queryByText('MODEL X')).toBeNull()
+    expect(await screen.findByText('SQ7')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('btn-vehicle-post'))
+    expect(screen.queryByText('MODEL X')).toBeNull()
+    const inputNameValue = screen.getByPlaceholderText('new vehicle name')
+    await userEvent.type(inputNameValue, 'MODEL X')
+    const inputYearValue = screen.getByPlaceholderText('year of release')
+    await userEvent.type(inputYearValue, '2019')
+    const inputPriceValue = screen.getByPlaceholderText('price')
+    await userEvent.type(inputPriceValue, '350.12')
+    await userEvent.selectOptions(screen.getByTestId('select-segment'), '2')
+    await userEvent.selectOptions(screen.getByTestId('select-brand'), '2')
+    await userEvent.click(screen.getByTestId('btn-vehicle-post'))
+    expect(await screen.findByText('Created vehicle!')).toBeInTheDocument()
+    expect(await screen.findByText('MODEL X')).toBeInTheDocument()
+    expect(screen.getByTestId('delete-vehicle-3')).toBeTruthy()
+    expect(screen.getByTestId('edit-vehicle-3')).toBeTruthy()
+  })
 })
