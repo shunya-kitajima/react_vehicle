@@ -166,4 +166,16 @@ describe('Vehicle Component Test Cases', () => {
     expect(screen.getByTestId('delete-vehicle-2')).toBeTruthy()
     expect(screen.getByTestId('edit-vehicle-2')).toBeTruthy()
   })
+  it('2: Should render list of vehicles from REST API', async () => {
+    render(
+      <Provider store={store}>
+        <Vehicle />
+      </Provider>
+    )
+    expect(screen.queryByText('SQ7')).toBeNull()
+    expect(screen.queryByText('MODEL S')).toBeNull()
+    expect(await screen.findByText('SQ7')).toBeInTheDocument()
+    expect(screen.getByTestId('name-vehicle-1').textContent).toBe('SQ7')
+    expect(screen.getByTestId('name-vehicle-2').textContent).toBe('MODEL S')
+  })
 })
