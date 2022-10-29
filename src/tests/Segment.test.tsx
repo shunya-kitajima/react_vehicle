@@ -76,7 +76,7 @@ describe('Segment Component Test Cases', () => {
     expect(screen.getByTestId('delete-segment-2')).toBeTruthy()
     expect(screen.getByTestId('edit-segment-2')).toBeTruthy()
   })
-  it('2: Should render list of segments from REST API', async () => {
+  it('2: Should render list of segments from REST API when rejected', async () => {
     render(
       <Provider store={store}>
         <Segment />
