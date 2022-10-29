@@ -178,4 +178,21 @@ describe('Vehicle Component Test Cases', () => {
     expect(screen.getByTestId('name-vehicle-1').textContent).toBe('SQ7')
     expect(screen.getByTestId('name-vehicle-2').textContent).toBe('MODEL S')
   })
+  it('3: Should not render list of vehicle from REST API when rejected', async () => {
+    server.use(
+      rest.get('http://localhost:8000/api/vehicles/', (req, res, ctx) => {
+        return res(ctx.status(400))
+      })
+    )
+    render(
+      <Provider store={store}>
+        <Vehicle />
+      </Provider>
+    )
+    expect(screen.queryByText('SQ7')).toBeNull()
+    expect(screen.queryByText('MODEL S')).toBeNull()
+    expect(await screen.findByText('Get error!')).toBeInTheDocument()
+    expect(screen.queryByText('SQ7')).toBeNull()
+    expect(screen.queryByText('MODEL S')).toBeNull()
+  })
 })
