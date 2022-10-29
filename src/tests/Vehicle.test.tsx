@@ -136,4 +136,34 @@ afterAll(() => {
   server.close()
 })
 
-describe('Vehicle Component Test Cases', () => {})
+describe('Vehicle Component Test Cases', () => {
+  let store: Store<any, AnyAction>
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        vehicle: vehicleReducer,
+      },
+    })
+  })
+  it('1: Should render all the element correctly', async () => {
+    render(
+      <Provider store={store}>
+        <Vehicle />
+      </Provider>
+    )
+    expect(screen.getByTestId('h3-vehicle')).toBeTruthy()
+    expect(screen.getByPlaceholderText('new vehicle name')).toBeTruthy()
+    expect(screen.getByPlaceholderText('year of release')).toBeTruthy()
+    expect(screen.getByPlaceholderText('price')).toBeTruthy()
+    expect(screen.getByTestId('select-segment')).toBeTruthy()
+    expect(screen.getByTestId('select-brand')).toBeTruthy()
+    expect(screen.getByTestId('btn-vehicle-post')).toBeTruthy()
+    expect(await screen.findByText('SQ7')).toBeInTheDocument()
+    expect(screen.getAllByRole('listitem')[0]).toBeTruthy()
+    expect(screen.getByTestId('delete-vehicle-1')).toBeTruthy()
+    expect(screen.getByTestId('edit-vehicle-1')).toBeTruthy()
+    expect(screen.getAllByRole('listitem')[0]).toBeTruthy()
+    expect(screen.getByTestId('delete-vehicle-2')).toBeTruthy()
+    expect(screen.getByTestId('edit-vehicle-2')).toBeTruthy()
+  })
+})
