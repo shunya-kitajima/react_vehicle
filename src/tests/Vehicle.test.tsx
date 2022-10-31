@@ -232,4 +232,15 @@ describe('Vehicle Component Test Cases', () => {
     expect(await screen.findByText('Deleted vehicle!')).toBeInTheDocument()
     expect(screen.queryByText('SQ7')).toBeNull()
   })
+  it('6: Should delete vehicle(id 2) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Vehicle />
+      </Provider>
+    )
+    expect(await screen.findByText('MODEL X')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('delete-vehicle-2'))
+    expect(await screen.findByText('Deleted vehicle!')).toBeInTheDocument()
+    expect(screen.queryByText('MODEL X')).toBeNull()
+  })
 })
