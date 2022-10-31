@@ -287,7 +287,7 @@ describe('Vehicle Component Test Cases', () => {
     expect(await screen.findByText('Updated vehicle!')).toBeInTheDocument()
     expect(screen.getByTestId('name-vehicle-2').textContent).toBe('new MODEL S')
   })
-  it('9: Should vehicle(id 2) cascde delete when EV(id 2) sgment deleted', async () => {
+  it('9: Should vehicle(id 2) cascde delete when segment(id 2) deleted', async () => {
     render(
       <Provider store={store}>
         <Segment />
@@ -298,6 +298,19 @@ describe('Vehicle Component Test Cases', () => {
     expect(await screen.findByText('MODEL S')).toBeInTheDocument()
     await userEvent.click(screen.getByTestId('delete-segment-2'))
     expect(await screen.findByText('Deleted segment!')).toBeInTheDocument()
+    expect(screen.queryByText('MODEL S')).toBeNull()
+  })
+  it('10: Should vehicle(id 2) cascde delete when brand(id 2) deleted', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+        <Brand />
+        <Vehicle />
+      </Provider>
+    )
+    expect(await screen.findByText('MODEL S')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('delete-brand-2'))
+    expect(await screen.findByText('Deleted brand!')).toBeInTheDocument()
     expect(screen.queryByText('MODEL S')).toBeNull()
   })
 })
