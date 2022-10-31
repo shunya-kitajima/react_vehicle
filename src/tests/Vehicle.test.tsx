@@ -221,4 +221,15 @@ describe('Vehicle Component Test Cases', () => {
     expect(screen.getByTestId('delete-vehicle-3')).toBeTruthy()
     expect(screen.getByTestId('edit-vehicle-3')).toBeTruthy()
   })
+  it('5: Should delete vehicle(id 1) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Vehicle />
+      </Provider>
+    )
+    expect(await screen.findByText('SQ7')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('delete-vehicle-1'))
+    expect(await screen.findByText('Deleted vehicle!')).toBeInTheDocument()
+    expect(screen.queryByText('SQ7')).toBeNull()
+  })
 })
