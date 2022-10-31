@@ -296,10 +296,8 @@ describe('Vehicle Component Test Cases', () => {
       </Provider>
     )
     expect(await screen.findByText('MODEL S')).toBeInTheDocument()
-    expect(await screen.findByText('EV')).toBeInTheDocument()
     await userEvent.click(screen.getByTestId('delete-segment-2'))
     expect(await screen.findByText('Deleted segment!')).toBeInTheDocument()
     expect(screen.queryByText('MODEL S')).toBeNull()
-    expect(screen.queryByText('EV')).toBeNull()
   })
 })
