@@ -130,7 +130,7 @@ describe('Brand Component Test Cases', () => {
     )
     expect(await screen.findByText('Toyota')).toBeTruthy()
     await userEvent.click(screen.getByTestId('delete-brand-1'))
-    expect(await screen.findByText('Delete brand!')).toBeInTheDocument()
+    expect(await screen.findByText('Deleted brand!')).toBeInTheDocument()
     expect(screen.queryByText('Toyota')).toBeNull()
   })
   it('6: Should delete brand(id 2) and also from list', async () => {
@@ -141,7 +141,7 @@ describe('Brand Component Test Cases', () => {
     )
     expect(await screen.findByText('Tesla')).toBeInTheDocument()
     await userEvent.click(screen.getByTestId('delete-brand-2'))
-    expect(await screen.findByText('Delete brand!')).toBeInTheDocument()
+    expect(await screen.findByText('Deleted brand!')).toBeInTheDocument()
     expect(screen.queryByText('Tesla')).toBeNull()
   })
   it('7: Should update brand(id 1) and also from list', async () => {
