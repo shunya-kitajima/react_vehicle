@@ -238,9 +238,31 @@ describe('Vehicle Component Test Cases', () => {
         <Vehicle />
       </Provider>
     )
-    expect(await screen.findByText('MODEL X')).toBeInTheDocument()
+    expect(await screen.findByText('MODEL S')).toBeInTheDocument()
     await userEvent.click(screen.getByTestId('delete-vehicle-2'))
     expect(await screen.findByText('Deleted vehicle!')).toBeInTheDocument()
-    expect(screen.queryByText('MODEL X')).toBeNull()
+    expect(screen.queryByText('MODEL S')).toBeNull()
+  })
+  it('7: Should update vehicle(id 1) and also from list', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+        <Brand />
+        <Vehicle />
+      </Provider>
+    )
+    expect(await screen.findByText('SQ7')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('edit-vehicle-1'))
+    const inputNameValue = screen.getByPlaceholderText('new vehicle name')
+    await userEvent.type(inputNameValue, 'new SQ7')
+    const inputYearValue = screen.getByPlaceholderText('year of release')
+    await userEvent.type(inputYearValue, '2010')
+    const inputPriceValue = screen.getByPlaceholderText('price')
+    await userEvent.type(inputPriceValue, '350.12')
+    await userEvent.selectOptions(screen.getByTestId('select-segment'), '2')
+    await userEvent.selectOptions(screen.getByTestId('select-brand'), '2')
+    await userEvent.click(screen.getByTestId('btn-vehicle-post'))
+    expect(await screen.findByText('Updated vehicle!')).toBeInTheDocument()
+    expect(screen.getByTestId('name-vehicle-1').textContent).toBe('new SQ7')
   })
 })
