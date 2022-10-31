@@ -313,4 +313,30 @@ describe('Vehicle Component Test Cases', () => {
     expect(await screen.findByText('Deleted brand!')).toBeInTheDocument()
     expect(screen.queryByText('MODEL S')).toBeNull()
   })
+  it('11: Should vehicle(id 1) cascde delete when segment(id 1) deleted', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+        <Brand />
+        <Vehicle />
+      </Provider>
+    )
+    expect(await screen.findByText('SQ7')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('delete-segment-1'))
+    expect(await screen.findByText('Deleted segment!')).toBeInTheDocument()
+    expect(screen.queryByText('SQ7')).toBeNull()
+  })
+  it('12: Should vehicle(id 1) cascde delete when brand(id 1) deleted', async () => {
+    render(
+      <Provider store={store}>
+        <Segment />
+        <Brand />
+        <Vehicle />
+      </Provider>
+    )
+    expect(await screen.findByText('SQ7')).toBeInTheDocument()
+    await userEvent.click(screen.getByTestId('delete-brand-1'))
+    expect(await screen.findByText('Deleted brand!')).toBeInTheDocument()
+    expect(screen.queryByText('SQ7')).toBeNull()
+  })
 })
