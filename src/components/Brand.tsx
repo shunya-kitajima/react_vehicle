@@ -80,7 +80,7 @@ const Brand: React.FC = () => {
                       fetchAsyncDeleteBrand(brand.id)
                     )
                     if (fetchAsyncDeleteBrand.fulfilled.match(result))
-                      setSuccessMsg('Delete brand!')
+                      setSuccessMsg('Deleted brand!')
                   }}
                 >
                   delete
